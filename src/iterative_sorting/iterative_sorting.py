@@ -1,4 +1,5 @@
 # TO-DO: Complete the selection_sort() function below 
+# time complexity - O(n^2)
 def selection_sort( arr ):
     # loop through n-1 elements
     for i in range(0, len(arr) - 1):
@@ -15,36 +16,52 @@ def selection_sort( arr ):
             if arr[j] < arr[smallest_index]:
                 smallest_index = j
 
-        # Store the items i want to swap in variables
-        current = arr[cur_index]
-        smallest = arr[smallest_index]
-        # and then swap them out with eachother
-        arr[smallest_index] = current
-        arr[cur_index] = smallest
+    # # Store the items i want to swap in variables
+        # current = arr[cur_index]
+        # smallest = arr[smallest_index]
+    # # and then swap them out with eachother
+        # arr[smallest_index] = current
+        # arr[cur_index] = smallest
+
+        # better way
+        arr[cur_index], arr[smallest_index] = arr[smallest_index], arr[cur_index]
 
     return arr
 
 
 # TO-DO:  implement the Bubble Sort function below
+# time complexity - O(n^2)
 def bubble_sort(arr):
-    # swapped variable is used to check when the loop has swapped any items around
-    # if swapped remains false through the entire loop it means the array must be sorted
-    swapped = False
-    for i in range(0, len(arr) - 1):
-        # store the current item and next item so i can swap them later
-        current_item = arr[i]
-        next_item = arr[i+1]
 
-        # check to see if the next item in the list is higher, if it is we should swap the elements
-        if next_item < current_item:
-            arr[i] = next_item
-            arr[i+1] = current_item
-            swapped = True
+    made_a_swap = True
+    while made_a_swap:
+        made_a_swap = False
+
+        for i in range(len(arr) - 1):
+            j = i + 1
+
+            if arr[i] > arr[j]:
+                arr[i], arr[j] = arr[j], arr[i]
+                made_a_swap = True
+
+    # # swapped variable is used to check when the loop has swapped any items around
+    # # if swapped remains false through the entire loop it means the array must be sorted
+    # swapped = False
+    # for i in range(0, len(arr) - 1):
+    #     # store the current item and next item so i can swap them later
+    #     current_item = arr[i]
+    #     next_item = arr[i+1]
+
+    #     # check to see if the next item in the list is higher, if it is we should swap the elements
+    #     if next_item < current_item:
+    #         arr[i] = next_item
+    #         arr[i+1] = current_item
+    #         swapped = True
     
-    # if swapped is true that means there was a value in the array that needed to be swapped around which means we dont know the array is sorted yet
-    # in that case i use recursion and called the bubble sort method again passing in the arr - this will go through the loop again
-    if swapped:
-        bubble_sort(arr)
+    # # if swapped is true that means there was a value in the array that needed to be swapped around which means we dont know the array is sorted yet
+    # # in that case i use recursion and called the bubble sort method again passing in the arr - this will go through the loop again
+    # if swapped:
+    #     bubble_sort(arr)
 
     return arr
 
@@ -65,34 +82,53 @@ buckets.
 
 What is the time and space complexity of the counting sort algorithm?
 '''
+# original time complexity - O(n^2)
 def count_sort(arr, maximum=None):
-    # first check to see if the arr is empty or not, if it is i just return the empty array
     if len(arr) == 0:
         return arr
 
-    # next i check if maximum is none - if it is i find the max value in the arr and that becomes the maximum
-    if maximum is None:
+    if maximum == None:
         maximum = max(arr)
 
-    
-    # buckets will store a list of 0's
-    buckets = [0 for _ in range(maximum+1)]
+    counts = [0] * (maximum + 1)
 
-    # loop through arr
-    for item in arr:
-        # if there are any negative numbers in the arr we will return the error string
-        if item < 0:
+    for value in arr:
+        if value < 0:
             return "Error, negative numbers not allowed in Count Sort"
-        # if no error then we increase the buckets by 1 at the index that represents the current item in arr
-        buckets[item] += 1
+        counts[value] += 1
+
+    for i in range(len(counts)):
+        while counts[j] = i
+            j += 1
+            counts[i] -= 1
+            
+    # # first check to see if the arr is empty or not, if it is i just return the empty array
+    # if len(arr) == 0:
+    #     return arr
+
+    # # next i check if maximum is none - if it is i find the max value in the arr and that becomes the maximum
+    # if maximum is None:
+    #     maximum = max(arr)
+
     
-    i = 0
-    # loop
-    for item in range(maximum+1):
-        # loop again up to the current item index
-        for _ in range(buckets[item]):
-            # 
-            arr[i] = item
-            i += 1
+    # # buckets will store a list of 0's
+    # buckets = [0 for _ in range(maximum+1)]
+
+    # # loop through arr
+    # for item in arr:
+    #     # if there are any negative numbers in the arr we will return the error string
+    #     if item < 0:
+    #         return "Error, negative numbers not allowed in Count Sort"
+    #     # if no error then we increase the buckets by 1 at the index that represents the current item in arr
+    #     buckets[item] += 1
+    
+    # i = 0
+    # # loop
+    # for item in range(maximum+1):
+    #     # loop again up to the current item index
+    #     for _ in range(buckets[item]):
+    #         # 
+    #         arr[i] = item
+    #         i += 1
 
     return arr
